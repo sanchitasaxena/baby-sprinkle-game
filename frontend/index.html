@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Guess the Baby! 🍼 Valeriia &amp; Nicola's Baby Sprinkle</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="wrap">
+
+  <div class="honoree-banner">
+    <p>💗 This baby sprinkle is celebrating <strong>Valeriia &amp; Nicola</strong>! 💗</p>
+  </div>
+
+  <header class="site-header">
+    <h1>👶 Guess the Baby!</h1>
+    <p class="subtitle">Can you match the registry team to their real baby photos?</p>
+  </header>
+
+  <main>
+    <!-- START SCREEN -->
+    <section id="start-screen" class="screen card">
+      <p>
+        Which baby is on the registry team? Who is this baby?
+      </p>
+      <p class="hint">
+        💡 Play together live on the Zoom call (host shares their screen and clicks
+        through), or open this link on your own before or after the shower.
+      </p>
+      <button id="start-btn" class="primary-btn">Start Guessing →</button>
+      <p id="start-error" class="feedback incorrect-text hidden"></p>
+    </section>
+
+    <!-- GAME SCREEN -->
+    <section id="game-screen" class="screen card hidden">
+      <div class="game-meta">
+        <span id="progress"></span>
+        <span id="score"></span>
+      </div>
+
+      <p id="round-prompt" class="round-prompt"></p>
+
+      <div id="single-photo-frame" class="photo-frame">
+        <img id="photo-img" alt="Guess this teammate's real baby photo" />
+      </div>
+
+      <div id="pair-frame" class="pair-frame hidden"></div>
+      <div id="pair-choices" class="choices hidden"></div>
+      <div id="choices" class="choices hidden"></div>
+      <p id="feedback" class="feedback"></p>
+      <div id="wrong-animation" class="wrong-animation" aria-hidden="true">WRONG!</div>
+      <button id="next-btn" class="primary-btn hidden">Next Round →</button>
+    </section>
+
+    <!-- END SCREEN -->
+    <section id="end-screen" class="screen card hidden">
+      <h2>Final Score</h2>
+      <p id="final-score" class="final-score"></p>
+      <p id="final-message" class="hint"></p>
+      <button id="play-again-btn" class="primary-btn">Play Again 🔁</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>Made with 💕 for Valeriia &amp; Nicola's baby sprinkle.</p>
+  </footer>
+</div>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

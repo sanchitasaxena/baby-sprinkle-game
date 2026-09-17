@@ -1,0 +1,33 @@
+# Never commit the real answer mapping.
+worker/roster-data.json
+worker/.dev.vars
+worker/.wrangler/
+
+# Node
+node_modules/
+
+# OS cruft
+.DS_Store
+
+# Old flat photo dump at repo root / legacy game folder — superseded by
+# frontend/ + worker/. Keep out of new commits.
+*.zip
+
+# Legacy client-side prototype: script.js embeds the real name<->photo
+# mapping in plaintext and images/ uses real names as filenames. This is
+# the source material that worker/scripts/prepare-assets.js reads to
+# generate the anonymized frontend/images/ + private worker/roster-data.json.
+# Keep it on disk for that script, but NEVER publish it.
+game/
+
+# Real-name-labeled source photos dumped at the repo root (e.g. GLENN.png,
+# RUSSEL.jpg, SANCHITA.jpeg...). These are also prepare-assets.js source
+# input, superseded for publishing by the opaque p-*.{ext} copies in
+# frontend/images/. Never commit — filenames alone would give away answers.
+*.jpg
+*.jpeg
+*.JPG
+*.JPEG
+*.png
+*.webp
+!frontend/images/**

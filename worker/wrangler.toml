@@ -1,0 +1,21 @@
+name = "guess-the-baby-api"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# Free-tier KV namespace used to store in-progress game sessions (scores,
+# round index). Create it once with:
+#   npx wrangler kv namespace create SESSIONS
+# then paste the returned id below.
+kv_namespaces = [
+  { binding = "SESSIONS", id = "REPLACE_WITH_KV_NAMESPACE_ID" }
+]
+
+# Restrict CORS to your GitHub Pages origin once you know it, e.g.
+#   https://<your-username>.github.io
+# Leaving this as "*" works too, it just allows any site to call the API.
+[vars]
+ALLOWED_ORIGIN = "*"
+
+# ROSTER_DATA (the real name <-> photo mapping) is NOT set here — it is a
+# secret, loaded separately and never committed:
+#   npx wrangler secret put ROSTER_DATA < roster-data.json
