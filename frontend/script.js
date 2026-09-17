@@ -45,32 +45,29 @@ function shuffle(array) {
 }
 
 function buildQuestions() {
-  const photoQuestions = shuffle(gameData.roster.flatMap((person) =>
+  const photoQuestions = gameData.roster.flatMap((person) =>
     person.photos.map((photo) => ({
       name: person.name,
       photo,
       decoyGroup: gameData.decoyGroups[person.name],
     })),
-  ));
+  );
   const decoyPools = Object.fromEntries(
     Object.entries(gameData.decoyPools).map(([group, photos]) => [group, shuffle(photos)]),
   );
-  const decoyPoolIndexes = Object.fromEntries(
-    Object.keys(decoyPools).map((group) => [group, 0]),
-  );
 
-  const questions = photoQuestions.map((question) => {
-    const pool = decoyPools[question.decoyGroup];
-    if (!pool?.length) {
-      throw new Error(`No decoy photos configured for ${question.name}.`);
+  const questions = Object.entries(decoyPools).flatMap(([group, decoys]) => {
+    const candidates = shuffle(
+      photoQuestions.filter((question) => question.decoyGroup === group),
+    );
+    if (candidates.length < decoys.length) {
+      throw new Error(`Not enough teammate photos configured for the ${group} group.`);
     }
-    const index = decoyPoolIndexes[question.decoyGroup];
-    decoyPoolIndexes[question.decoyGroup] += 1;
-    return {
+    return candidates.slice(0, decoys.length).map((question, index) => ({
       ...question,
       twoPicture: true,
-      decoyPhoto: pool[index % pool.length],
-    };
+      decoyPhoto: decoys[index],
+    }));
   });
 
   return shuffle(questions);
