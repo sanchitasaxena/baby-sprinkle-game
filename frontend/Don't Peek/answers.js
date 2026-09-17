@@ -58,6 +58,8 @@ window.GAME_DATA = {
     Russell: "boy",
     Martin: "boy",
     Steve: "boy",
+    John: "boy",
+    Kai: "boy",
     Carolina: "girl",
     Olivia: "girl",
     Sanchita: "special",

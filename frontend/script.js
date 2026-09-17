@@ -55,18 +55,22 @@ function buildQuestions() {
   const decoyPools = Object.fromEntries(
     Object.entries(gameData.decoyPools).map(([group, photos]) => [group, shuffle(photos)]),
   );
-  const targetTwoPictureCount = Math.min(
-    Math.floor(photoQuestions.length / 2),
-    Object.values(decoyPools).reduce((total, photos) => total + photos.length, 0),
+  const decoyPoolIndexes = Object.fromEntries(
+    Object.keys(decoyPools).map((group) => [group, 0]),
   );
-  let twoPictureCount = 0;
 
   const questions = photoQuestions.map((question) => {
-    const pool = decoyPools[question.decoyGroup] || [];
-    const twoPicture = twoPictureCount < targetTwoPictureCount && pool.length > 0;
-    const decoyPhoto = twoPicture ? pool.pop() : null;
-    if (twoPicture) twoPictureCount += 1;
-    return { ...question, twoPicture, decoyPhoto };
+    const pool = decoyPools[question.decoyGroup];
+    if (!pool?.length) {
+      throw new Error(`No decoy photos configured for ${question.name}.`);
+    }
+    const index = decoyPoolIndexes[question.decoyGroup];
+    decoyPoolIndexes[question.decoyGroup] += 1;
+    return {
+      ...question,
+      twoPicture: true,
+      decoyPhoto: pool[index % pool.length],
+    };
   });
 
   return shuffle(questions);
@@ -348,6 +352,7 @@ async function selectPair(button, token) {
     }
     updateScore();
     phase = "teammate";
+    roundPrompt.textContent = "Who is this baby?";
     renderNameChoices(next.round);
   } catch (err) {
     feedback.textContent = `⚠️ ${err.message}`;
