@@ -1,4 +1,5 @@
-# Never commit the real answer mapping.
+# Keep the generator's private JSON source and local Cloudflare artifacts out
+# of git. The intentionally shareable answer key is frontend/Don't Peek/.
 worker/roster-data.json
 worker/.dev.vars
 worker/.wrangler/
@@ -13,11 +14,8 @@ node_modules/
 # frontend/ + worker/. Keep out of new commits.
 *.zip
 
-# Legacy client-side prototype: script.js embeds the real name<->photo
-# mapping in plaintext and images/ uses real names as filenames. This is
-# the source material that worker/scripts/prepare-assets.js reads to
-# generate the anonymized frontend/images/ + private worker/roster-data.json.
-# Keep it on disk for that script, but NEVER publish it.
+# Legacy client-side prototype with identifying photo filenames. The static
+# site uses only opaque filenames under frontend/images/.
 game/
 
 # Real-name-labeled source photos dumped at the repo root (e.g. GLENN.png,
